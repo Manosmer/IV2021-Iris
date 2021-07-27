@@ -1,5 +1,6 @@
 import pandas as pd
 import altair as alt
+alt.renderers.enable('altair_viewer')
 
 iris = pd.read_csv('iris.csv')
 
@@ -45,7 +46,7 @@ print(proportionsTable.head(5)) # take a look at the data set
 color_scale = alt.Scale(domain=["setosa","versicolor", "virginica"],
                         range=['#324aa8', '#32a852', '#a83232']) # Ware(2021), use the six basic colours 
 
-alt.Chart(proportionsTable).mark_bar(width = 50).encode(
+chart = alt.Chart(proportionsTable).mark_bar(width = 50).encode(
     x = alt.X("species:N", title = "Iris species"),
     y = alt.Y("Proportion:Q", title = "Proportion by size in species"),
     column = alt.Column("size:O", title = "Flower size"),
@@ -54,3 +55,5 @@ alt.Chart(proportionsTable).mark_bar(width = 50).encode(
 ).interactive().properties(
     width = 200  # larger width of the entire plot and the bars for clearer view & easier comparison
 )
+
+chart.save("system1.html")

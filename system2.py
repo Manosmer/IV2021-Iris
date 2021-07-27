@@ -1,5 +1,6 @@
 import pandas as pd
 import altair as alt
+alt.renderers.enable('altair_viewer')
 
 iris = pd.read_csv('iris.csv')
 
@@ -18,16 +19,6 @@ color_scale = alt.Scale(domain=["smaller","larger"],
                         range=['#b3d1ff', '#001433']) # same colour hue, different value because size is ordinal
 
 
-# selector = alt.selection_single(empty='all', fields=['species'])
-
-# base = alt.Chart(iris).properties(
-#     width=300,
-#     height=250
-# ).add_selection(selector)
-
-
-
-
 # stacked bar chart
 stackedBar = alt.Chart(iris).mark_bar(width = 40).encode(
                     x=alt.X('species:N', title = "Different iris species"),
@@ -36,4 +27,4 @@ stackedBar = alt.Chart(iris).mark_bar(width = 40).encode(
                     color=alt.Color("size:O", scale=color_scale, legend = alt.Legend(title = "Size by colour value"))
                 ).interactive().properties(width = 240, height = 300)
 
-stackedBar
+stackedBar.save("system2.html")
